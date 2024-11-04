@@ -19,7 +19,7 @@
       <a href="productos.php" class="btn">Productos</a>
       <a href="compras.php" class="btn">Compras</a>
       <a href="proveedores.php" class="btn">Proveedores</a>
-      <a href="inde6.html" class="btn">Cerrar Sesión</a>
+      <a href="index.php" class="btn">Cerrar Sesión</a>
     </div>
   </div>
 

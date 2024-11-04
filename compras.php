@@ -28,8 +28,15 @@
             display: block;
             margin-top: 10px;
         }
-        input, select, button {
+        input, select {
             width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button{
             padding: 8px;
             margin-top: 5px;
             margin-bottom: 15px;
@@ -58,16 +65,22 @@
         th {
             background-color: #218838;
             color: white;
+            padding:20px 7px;
+            text-align:center;
         }
+        
     </style>
 </head>
 <body>
     <header>
         <h1>Compras</h1>
-        <a href="inicio.php">Volver al inicio</a>
+        
+     
     </header>
-
+    
     <div class="container">
+    <br>
+    <a href="inicio.php"><button >Volver al inicio</button></a>
         <?php
         // Conexión a la base de datos
         $servername = "localhost";

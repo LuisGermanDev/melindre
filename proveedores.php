@@ -31,8 +31,15 @@
             display: block;
             margin-top: 10px;
         }
-        input, select, textarea, button {
+        input, select, textarea  {
             width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button{
             padding: 8px;
             margin-top: 5px;
             margin-bottom: 15px;
@@ -71,7 +78,7 @@
 <body>
     <header>
         <h1>Proveedores</h1>
-        <a href="inicio.php">Volver al inicio</a>
+       
         <script>
             function goBack() {
                 window.history.back();
@@ -79,7 +86,11 @@
         </script>
     </header>
 
+    
+
     <div class="container">
+    <br>
+    <a href="inicio.php"><button >Volver al inicio</button></a>
         <?php
         // Configuración de la conexión a la base de datos
         $servername = "localhost";

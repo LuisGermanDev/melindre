@@ -4,20 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Productos</title>
-    <link rel="stylesheet" href="estilo2.css">
+    <!-- <link rel="stylesheet" href="estilo2.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #218838;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select,textarea{
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button{
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #0e521e;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #424643;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #218838;
+            color: white;
+            padding:20px 7px;
+            text-align:center;
+        }
+        
+    </style>
 </head>
 <body>
 <header>
     <h1>Gestión de Productos</h1>
-    <a href="inicio.php">Volver al inicio</a>
+    
     <script>
         function goBack() {
             window.history.back();
         }
-    </script>
+        </script>
 </header>
 
 <div class="container">
+<br>
+<a href="inicio.php"><button class="volver">Volver al inicio</button></a>
+<br>
     <?php
     // Configuración de la conexión a la base de datos
     $servername = "localhost";
@@ -74,9 +143,14 @@
 
     <form action="productos.php" method="POST">
         <input type="hidden" name="id" id="productId">
+        <br>
+        <label for="">Nombre del producto</label>
         <input type="text" name="nombre" id="productName" placeholder="Nombre del producto" required>
+        <label for="">Codigo del producto</label>
         <input type="text" name="codigo_barra" id="productBarcode" placeholder="Código de barra" required>
+        <label for="">Cantidad del producto</label>
         <input type="number" name="cantidad" id="productQuantity" placeholder="Cantidad" required>
+        <label for="">Descripcion</label>
         <textarea name="descripcion" id="productDescription" placeholder="Descripción del producto" rows="3"></textarea>
         <button type="submit">Guardar Producto</button>
     </form>

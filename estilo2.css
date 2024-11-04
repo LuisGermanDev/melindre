@@ -1,14 +1,15 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 50px;
-    padding: 50px;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
     background-color: #f4f4f4;
 }
 header {
-    background: #277539;
+    background-color: #218838;
     color: white;
     padding: 20px;
-    text-align: justify;
+    text-align: center;
 }
 .container {
     max-width: 3000px;
@@ -90,4 +91,6 @@ th {
         }
         .btn:hover {
             background-color: #4b6651;
+            
         }
+        

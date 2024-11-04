@@ -1,13 +1,15 @@
 body {
     font-family: Arial, sans-serif;
-    
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
   }
   header {
-    background-color: #277539;
+    background-color: #218838;
     color: white;
     padding: 20px;
     text-align: center;
-  }
+}
   .logo img {
     max-height: 300px;
 text-align: center;

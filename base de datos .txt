@@ -23,3 +23,14 @@ CREATE TABLE proveedor (
     descuentos VARCHAR(100),
     politica_devoluciones TEXT
 );
+CREATE TABLE compra (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT,
+    proveedor_id INT,
+    cantidad INT NOT NULL,
+    precio_unitario DECIMAL(10, 2) NOT NULL,
+    total DECIMAL(10, 2) GENERATED ALWAYS AS (cantidad * precio_unitario) STORED,
+    fecha_compra TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (producto_id) REFERENCES producto(id),
+    FOREIGN KEY (proveedor_id) REFERENCES proveedor(id)
+);
