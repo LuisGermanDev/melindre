@@ -1,0 +1,120 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+nav {
+    height: 3vh;
+    background-color: #3e8e41;
+    padding: 15px 500px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    background-color: #28632a;
+    border-radius: 5px;
+}
+
+.hero {
+    background: url('./doctor.jpg') no-repeat center center/cover;
+    height: 97vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5em;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.section {
+    padding: 20px;
+    text-align: center;
+}
+
+.section img {
+    width: 300px;
+    border-radius: 10px;
+}
+
+.health-quotes {
+    font-style: italic;
+    margin-top: 20px;
+}
+
+#productos{
+    
+    height: 60vh;
+    
+}
+.productosection{
+    margin: 100px auto;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+/* .productosection .box{
+    width: 300px;
+} */
+.box{
+    width: 350px;
+    height: 300px;
+}
+.box1{
+    background-image: url("https://farmacorp.com/cdn/shop/files/7800007573636_1200x1200.jpg?v=1714442337");
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+
+
+}
+.box2{
+    background-image: url("https://www.laboratoriochile.cl/wp-content/uploads/2015/11/Paracetamol_500MG_16C_BE_HD.jpg");
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    
+}
+.box3{
+    background-image: url("https://s1.elespanol.com/2018/06/08/ciencia/salud/farmacologia-farmacologia_clinica-salud_313481328_81018057_1706x1280.jpg");
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    
+}
+footer{
+    background-color: #28632a;
+    color: white;
+    
+}

@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INICIAR SESIÓN</title>
+    <title>REGISTRARSE</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color:#277539;
+            background-color: #277539;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
-        .login-container {
+        .register-container {
             background: #fff;
             padding: 80px;
             border-radius: 15px;
@@ -23,6 +23,7 @@
         h1 {
             text-align: center;
         }
+        input[type="text"],
         input[type="password"] {
             width: 100%;
             padding: 10px;
@@ -42,6 +43,10 @@
         button:hover {
             background: #218838;
         }
+        .success {
+            color: green;
+            text-align: center;
+        }
         .error {
             color: red;
             text-align: center;
@@ -50,25 +55,25 @@
 </head>
 <body>
 
-    <div class="login-container">
-        <h1>Iniciar Sesión</h1>
-        <input type="password" id="password" placeholder="Contraseña" />
-        <button onclick="checkPassword()">Iniciar</button>
-        <div id="error" class="error"></div>
-    </div>
-
-    <script>
-        function checkPassword() {
-            const password = document.getElementById('password').value;
-            const correctPassword = '12345'; // Cambia esto por la contraseña que desees
-
-            if (password === correctPassword) {
-                window.location.href = 'index.html'; // Redirige a la página del inventario
-            } else {
-                document.getElementById('error').textContent = 'Contraseña incorrecta. Intenta de nuevo.';
+<div class="register-container">
+    <h1>Registrarse</h1>
+    <form action="procesar_registro.php" method="POST">
+        <label for="usaurio">Usuario</label>
+        <input type="text" name="usuario" placeholder="Usuario" required />
+        <label for="password">Contraseña</label>
+        <input type="password" name="password" placeholder="Contraseña" required />
+        <button type="submit">Registrarse</button>
+        <?php
+        if (isset($_GET['status'])) {
+            if ($_GET['status'] === 'success') {
+                echo '<div class="success">Registro exitoso. Puedes <a href="login.php">iniciar sesión</a>.</div>';
+            } else if ($_GET['status'] === 'error') {
+                echo '<div class="error">Error al registrar. Inténtalo de nuevo.</div>';
             }
         }
-    </script>
+        ?>
+    </form>
+</div>
 
 </body>
 </html>
