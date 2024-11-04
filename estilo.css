@@ -48,4 +48,21 @@ height: auto;
     text-align: center;
     padding: 10px 0;
   }
- 
+*{border: 1px solid black;
+height: 100vh;
+}
+img{
+  width: 300px;
+  display: flex;
+  justify-content: center;
+
+}
+h2{
+  margin-left: 100px;
+}
+button{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  flex-direction: column;
+}

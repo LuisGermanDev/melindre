@@ -5,16 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INICIAR SESIÓN</title>
     <style>
+        .fondolog{
+    background-image: url("./fondologing.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
         body {
+
             font-family: Arial, sans-serif;
             background-color: #277539;
-            display: flex;
+            
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
+        .container{
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+        }
         .login-container {
+            
+            width: 400px;
             background: #fff;
             padding: 80px;
             border-radius: 15px;
@@ -31,8 +47,16 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        button {
+        .login-container .btn {
             width: 100%;
+            padding: 10px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button{
             padding: 10px;
             background: #28a745;
             color: white;
@@ -47,23 +71,33 @@
             color: red;
             text-align: center;
         }
+        
     </style>
 </head>
-<body>
+<body class="fondolog">
 
+<div class="container">
 <div class="login-container">
+
     <h1>Iniciar Sesión</h1>
     <form action="procesar_login.php" method="POST">
+        <label for="usuario">Usuario</label>
         <input type="text" name="usuario" placeholder="Usuario" required />
+        <label for="password">Contraseña</label>
         <input type="password" name="password" placeholder="Contraseña" required />
-        <button type="submit">Iniciar</button>
+        <br>
+        <button type="submit" class="btn">Iniciar</button>
         <?php
         if (isset($_GET['error'])) {
             echo '<div class="error">Usuario o contraseña incorrectos.</div>';
         }
         ?>
-        <a href="registro.php">registrar</a>
+        
+        <a href="registro.php" >registrar</a>
     </form>
+    <br>
+<a href="inicio.php"><button class="volver">Volver al inicio</button></a>
+</div>
 </div>
 
 </body>
