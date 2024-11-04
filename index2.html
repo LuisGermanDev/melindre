@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRODUCTOS</title>
+   <link rel="stylesheet" href="estilo2.css">
+</head>
+<body>
+<header>
+    <h1>PRODUCTOS</h1>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 10px;
+                background-color: #f4f4f4;
+            }
+            button {
+                padding: 10px 15px;
+                background: #0e521e;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            button:hover {
+                background:  #5d8565;
+            }
+            
+        </style>
+        <button onclick="goBack()">Volver</button>
+    
+        <script>
+            function goBack() {
+                window.history.back(); // Regresa a la página anterior
+            }
+        </script>
+    
+</header>
+    
+    
+
+<div class="container">
+    <form id="medicationForm">
+        <input type="text" id="medicationName" placeholder="Nombre del medicamento" required>
+        <input type="text" id="barcode" placeholder="Código de barra" required>
+        <input type="number" id="quantity" placeholder="Cantidad" required>
+        <textarea id="description" placeholder="Descripción del medicamento" rows="3" required></textarea>
+        <button type="submit">Añadir Medicamento</button>
+    </form>
+
+    <table id="medicationTable">
+        <thead>
+            <tr>
+                <th>Nombre del Medicamento</th>
+                <th>Código de Barra</th>
+                <th>Cantidad</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los medicamentos se añadirán aquí -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    let editingRow = null;
+
+    document.getElementById('medicationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const medicationName = document.getElementById('medicationName').value;
+        const barcode = document.getElementById('barcode').value;
+        const quantity = document.getElementById('quantity').value;
+        const description = document.getElementById('description').value;
+
+        const tableBody = document.getElementById('medicationTable').getElementsByTagName('tbody')[0];
+
+        if (editingRow) {
+            // Actualizar la fila existente
+            editingRow.cells[0].textContent = medicationName;
+            editingRow.cells[1].textContent = barcode;
+            editingRow.cells[2].textContent = quantity;
+            editingRow.cells[3].textContent = description;
+            editingRow = null;
+        } else {
+            // Añadir nueva fila
+            const newRow = tableBody.insertRow();
+            newRow.insertCell(0).textContent = medicationName;
+            newRow.insertCell(1).textContent = barcode;
+            newRow.insertCell(2).textContent = quantity;
+            newRow.insertCell(3).textContent = description;
+
+            // Botones de editar y eliminar
+            const actionsCell = newRow.insertCell(4);
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Editar';
+            editButton.className = 'edit-btn';
+            editButton.onclick = function() {
+                editMedication(newRow);
+            };
+            actionsCell.appendChild(editButton);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Eliminar';
+            deleteButton.className = 'delete-btn';
+            deleteButton.onclick = function() {
+                deleteMedication(newRow);
+            };
+            actionsCell.appendChild(deleteButton);
+        }
+
+        // Limpiar el formulario
+        document.getElementById('medicationForm').reset();
+    });
+
+    function editMedication(row) {
+        editingRow = row;
+        document.getElementById('medicationName').value = row.cells[0].textContent;
+        document.getElementById('barcode').value = row.cells[1].textContent;
+        document.getElementById('quantity').value = row.cells[2].textContent;
+        document.getElementById('description').value = row.cells[3].textContent;
+    }
+
+    function deleteMedication(row) {
+        const tableBody = document.getElementById('medicationTable').getElementsByTagName('tbody')[0];
+        tableBody.deleteRow(row.rowIndex - 1);
+    }
+</script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Medicamentos</title>
+  <style>
+    #notification {
+      display: none;
+      padding: 10px;
+      background-color: #ff0000;
+      border: 1px solid #e6000091;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gestión de Medicamentos</h1>
+  <button id="removeMedicine">Stock Medicamento</button>
+  <div id="notification">
+    ¡Solo quedan 5 medicamentos!
+  </div>
+  <audio id="alertSound" src="alert.mp3" preload="auto"></audio>
+
+  <script>
+    let medicineCount = 10;
+
+    document.getElementById('removeMedicine').addEventListener('click', function() {
+      medicineCount--;
+      updateMedicineNotification();
+    });
+
+    function updateMedicineNotification() {
+      const notificationElement = document.getElementById('notification');
+      const alertSoundElement = document.getElementById('alertSound');
+
+      if (medicineCount <= 5) {
+        notificationElement.style.display = 'block';
+        alertSoundElement.play();
+      } else {
+        notificationElement.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 50px;
+    padding: 50px;
+    background-color: #f4f4f4;
+}
+header {
+    background: #277539;
+    color: white;
+    padding: 20px;
+    text-align: justify;
+}
+.container {
+    max-width: 3000px;
+    margin: 20px;
+    padding: 100px;
+    background: rgb(255, 255, 255);
+    
+}
+form {
+    margin-bottom: 30px;
+}
+input[type="text"], input[type="number"], textarea {
+    width: calc(100% - 20px);
+    padding: 20px;
+    margin: 5px ;
+    border: 1px solid #2b2828;
+    border-radius: 5px;
+}
+button {
+    padding: 10px;
+    background:  #277539;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background:#277539 ;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background: #f2f2f2;
+}
+.edit-btn, .delete-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.edit-btn {
+    background: #ffc107;
+    color: white;
+}
+.delete-btn {
+    background: #dc3545;
+    color: white;
+}
+@media (max-width: 600px) {
+    input[type="text"], input[type="number"], textarea, button {
+        width: 100%;
+    }
+}
+  body {
+            font-family: Arial, sans-serif;
+            margin: 40;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+        button {
+            padding: 10px 15px;
+            background: #277539;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #277539;
+        }
+        .btn:hover {
+            background-color: #4b6651;
+        }
