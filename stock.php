@@ -34,6 +34,22 @@ $result = $conn->query($sql);
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+        button{
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #0e521e;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #424643;
+        }
         h1 {
             text-align: center;
             color: #333;
@@ -61,6 +77,9 @@ $result = $conn->query($sql);
     </style>
 </head>
 <body>
+<br>
+<a href="inicio.php"><button class="volver">Volver al inicio</button></a>
+<br>
     <h1>Stock de Productos</h1>
     
     <?php
