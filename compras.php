@@ -192,7 +192,7 @@
                             <td>{$row['fecha_compra']}</td>
                             <td>
                                 <button onclick='editCompra(".json_encode($row).")'>Editar</button>
-                                <a href='compra.php?delete_id={$row['id']}' onclick='return confirm(\"¿Estás seguro de eliminar esta compra?\")'>Eliminar</a>
+                                
                             </td>
                         </tr>";
                     }
