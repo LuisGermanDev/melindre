@@ -1,3 +1,83 @@
+<?php
+// Configuración de la conexión a la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "farmaciaMelindre";
+$port = 3307;
+
+// Crear conexión
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
+
+// Verificar conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
+
+// Mensaje de advertencia
+$warningMessage = "";
+
+// Insertar o actualizar proveedor
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre = $_POST['nombre'];
+    $razon_social = $_POST['razonSocial'];
+    $ruc = $_POST['ruc'];
+    $direccion = $_POST['direccion'];
+    $telefono = $_POST['telefono'];
+    $email = $_POST['email'];
+    $productos = $_POST['productos'];
+    $metodo_pago = $_POST['metodoPago'];
+    $plazo_entrega = $_POST['plazoEntrega'];
+    $descuentos = $_POST['descuentos'];
+    $politica_devoluciones = $_POST['politicaDevoluciones'];
+    $id = isset($_POST['id']) ? $_POST['id'] : null;
+
+    if ($id) {
+        // Actualizar proveedor existente
+        $sql = "UPDATE proveedor SET nombre=?, razon_social=?, ruc=?, direccion=?, telefono=?, email=?, productos=?, metodo_pago=?, plazo_entrega=?, descuentos=?, politica_devoluciones=? WHERE id=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssssssissi", $nombre, $razon_social, $ruc, $direccion, $telefono, $email, $productos, $metodo_pago, $plazo_entrega, $descuentos, $politica_devoluciones, $id);
+    } else {
+        // Insertar nuevo proveedor
+        $sql = "INSERT INTO proveedor (nombre, razon_social, ruc, direccion, telefono, email, productos, metodo_pago, plazo_entrega, descuentos, politica_devoluciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssssssiss", $nombre, $razon_social, $ruc, $direccion, $telefono, $email, $productos, $metodo_pago, $plazo_entrega, $descuentos, $politica_devoluciones);
+    }
+    $stmt->execute();
+    $stmt->close();
+}
+
+// Eliminar proveedor
+if (isset($_GET['delete_id'])) {
+    $delete_id = $_GET['delete_id'];
+    
+    // Verificar si el proveedor tiene compras asociadas
+    $check_sql = "SELECT COUNT(*) as count FROM compra WHERE proveedor_id = ?";
+    $check_stmt = $conn->prepare($check_sql);
+    $check_stmt->bind_param("i", $delete_id);
+    $check_stmt->execute();
+    $check_result = $check_stmt->get_result();
+    $row = $check_result->fetch_assoc();
+    
+    if ($row['count'] > 0) {
+        // Si existen compras asociadas, mostrar advertencia
+        $warningMessage = "No se puede eliminar el proveedor porque tiene compras asociadas.";
+    } else {
+        // Si no hay compras asociadas, eliminar el proveedor
+        $sql = "DELETE FROM proveedor WHERE id=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $delete_id);
+        $stmt->execute();
+        $stmt->close();
+    }
+    $check_stmt->close();
+}
+
+// Obtener proveedores para mostrar en la tabla
+$sql = "SELECT id, nombre, razon_social, ruc, telefono, email FROM proveedor";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -27,22 +107,12 @@
         h1 {
             margin-bottom: 20px;
         }
-        label {
+        label, input, select, textarea, button {
             display: block;
-            margin-top: 10px;
-        }
-        input, select, textarea  {
             width: 100%;
-            padding: 8px;
             margin-top: 5px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button{
             padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -60,7 +130,7 @@
             border-collapse: collapse;
             margin-top: 20px;
         }
-        table, th, td {
+        th, td {
             border: 1px solid #ccc;
             padding: 8px;
             text-align: left;
@@ -69,88 +139,24 @@
             background-color: #218838;
             color: white;
         }
-        .actions button {
-            width: auto;
-            margin-right: 5px;
+        .warning {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Proveedores</h1>
-       
-        <script>
-            function goBack() {
-                window.history.back();
-            }
-        </script>
     </header>
 
-    
-
     <div class="container">
-    <br>
-    <a href="inicio.php"><button >Volver al inicio</button></a>
-        <?php
-        // Configuración de la conexión a la base de datos
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "farmaciaMelindre";
-        $port = 3307;
+        <?php if ($warningMessage): ?>
+            <p class="warning"><?= $warningMessage ?></p>
+        <?php endif; ?>
 
-        // Crear conexión
-        $conn = new mysqli($servername, $username, $password, $dbname, $port);
-
-        // Verificar conexión
-        if ($conn->connect_error) {
-            die("Conexión fallida: " . $conn->connect_error);
-        }
-
-        // Insertar o actualizar proveedor
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $nombre = $_POST['nombre'];
-            $razon_social = $_POST['razonSocial'];
-            $ruc = $_POST['ruc'];
-            $direccion = $_POST['direccion'];
-            $telefono = $_POST['telefono'];
-            $email = $_POST['email'];
-            $productos = $_POST['productos'];
-            $metodo_pago = $_POST['metodoPago'];
-            $plazo_entrega = $_POST['plazoEntrega'];
-            $descuentos = $_POST['descuentos'];
-            $politica_devoluciones = $_POST['politicaDevoluciones'];
-            $id = isset($_POST['id']) ? $_POST['id'] : null;
-
-            if ($id) {
-                // Actualizar proveedor existente
-                $sql = "UPDATE proveedor SET nombre=?, razon_social=?, ruc=?, direccion=?, telefono=?, email=?, productos=?, metodo_pago=?, plazo_entrega=?, descuentos=?, politica_devoluciones=? WHERE id=?";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("ssssssssissi", $nombre, $razon_social, $ruc, $direccion, $telefono, $email, $productos, $metodo_pago, $plazo_entrega, $descuentos, $politica_devoluciones, $id);
-            } else {
-                // Insertar nuevo proveedor
-                $sql = "INSERT INTO proveedor (nombre, razon_social, ruc, direccion, telefono, email, productos, metodo_pago, plazo_entrega, descuentos, politica_devoluciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("ssssssssiss", $nombre, $razon_social, $ruc, $direccion, $telefono, $email, $productos, $metodo_pago, $plazo_entrega, $descuentos, $politica_devoluciones);
-            }
-            $stmt->execute();
-            $stmt->close();
-        }
-
-        // Eliminar proveedor
-        if (isset($_GET['delete_id'])) {
-            $delete_id = $_GET['delete_id'];
-            $sql = "DELETE FROM proveedor WHERE id=?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("i", $delete_id);
-            $stmt->execute();
-            $stmt->close();
-        }
-
-        // Obtener proveedores para mostrar en la tabla
-        $sql = "SELECT id, nombre, razon_social, ruc, telefono, email FROM proveedor";
-        $result = $conn->query($sql);
-        ?>
+        <a href="inicio.php"><button>Volver al inicio</button></a>
 
         <form action="proveedores.php" method="POST">
             <input type="hidden" name="id" id="proveedorId">
